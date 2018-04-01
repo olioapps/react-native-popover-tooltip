@@ -46,6 +46,8 @@ type Props = {
   timingConfig?: { duration?: number },
   springConfig?: { tension?: number, friction?: number },
   opacityChangeDuration?: number,
+  tooltipContainerX?: number,
+  tooltipContainerY?: number,
 };
 type State = {
   isModalOpen: bool,
@@ -92,6 +94,8 @@ class PopoverTooltip extends React.PureComponent<Props, State> {
     timingConfig: PropTypes.object,
     springConfig: PropTypes.object,
     opacityChangeDuration: PropTypes.number,
+    tooltipContainerX: PropTypes.number,
+    tooltipContainerY: PropTypes.number,
   };
   static defaultProps = {
     buttonComponentExpandRatio: 1.0,
@@ -187,11 +191,11 @@ class PopoverTooltip extends React.PureComponent<Props, State> {
         tooltipContainerY_final = pageY - tooltipContainerHeight - 20;
         tooltipTriangleDown = true;
       }
-      const tooltipContainerX = this.state.tooltipContainerScale.interpolate({
+      const tooltipContainerX = this.props.tooltipContainerX || this.state.tooltipContainerScale.interpolate({
         inputRange: [0, 1],
         outputRange: [tooltipContainerX_final, tooltipContainerX_final],
       });
-      const tooltipContainerY = this.state.tooltipContainerScale.interpolate({
+      const tooltipContainerY = this.props.tooltipContainerY || this.state.tooltipContainerScale.interpolate({
         inputRange: [0, 1],
         outputRange: [
           tooltipContainerY_final + tooltipContainerHeight / 2 + 20,
